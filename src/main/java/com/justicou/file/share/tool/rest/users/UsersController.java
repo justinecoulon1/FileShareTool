@@ -40,10 +40,9 @@ public class UsersController {
 
     @PostMapping("/login")
     public LoginResponseDto login(@RequestBody LoginRequestDto loginRequestDto) {
-        FileShareToolUser user = usersService.getUser(loginRequestDto.email(), loginRequestDto.password());
+        var user = usersService.getUser(loginRequestDto.email(), loginRequestDto.password());
         String accessToken = tokenService.generateAccessToken(user.getId());
         String refreshToken = tokenService.generateRefreshToken(user.getId());
-
-        return new LoginResponseDto(accessToken, refreshToken);
+        return new LoginResponseDto(userMapper.toDto(user), accessToken, refreshToken);
     }
 }

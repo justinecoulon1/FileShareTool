@@ -25,8 +25,12 @@ public class UserValidationInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        if (!(handler instanceof HandlerMethod handlerMethod)) {
+            return true;
+        }
+
         String accessToken = request.getHeader("accessToken");
-        boolean requiresUser = ((HandlerMethod) handler).hasMethodAnnotation(UserEndpoint.class);
+        boolean requiresUser = handlerMethod.hasMethodAnnotation(UserEndpoint.class);
 
         if (accessToken == null && requiresUser) {
             throw new ForbiddenException("Missing token");

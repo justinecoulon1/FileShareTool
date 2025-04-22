@@ -14,7 +14,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
     private final UserValidationInterceptor userValidationInterceptor;
     private final CurrentUserMethodArgumentResolver currentUserMethodArgumentResolver;
 
-    public WebMvcConfig(UserValidationInterceptor userValidationInterceptor, CurrentUserMethodArgumentResolver currentUserMethodArgumentResolver) {
+    public WebMvcConfig(
+            UserValidationInterceptor userValidationInterceptor,
+            CurrentUserMethodArgumentResolver currentUserMethodArgumentResolver
+    ) {
         this.userValidationInterceptor = userValidationInterceptor;
         this.currentUserMethodArgumentResolver = currentUserMethodArgumentResolver;
     }
@@ -31,6 +34,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedMethods("*");
+        registry.addMapping("/**")
+                .allowedMethods("*");
     }
 }
