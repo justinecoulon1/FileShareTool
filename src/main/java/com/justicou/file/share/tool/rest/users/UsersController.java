@@ -7,6 +7,7 @@ import com.justicou.file.share.tool.rest.dto.users.LoginRequestDto;
 import com.justicou.file.share.tool.rest.dto.users.LoginResponseDto;
 import com.justicou.file.share.tool.rest.dto.users.UserDto;
 import com.justicou.file.share.tool.rest.mapper.UserMapper;
+import com.justicou.file.share.tool.rest.users.connectedusers.ConnectedUsersService;
 import com.justicou.file.share.tool.rest.utils.auth.TokenService;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,11 +20,18 @@ public class UsersController {
     private final UsersService usersService;
     private final TokenService tokenService;
     private final UserMapper userMapper;
+    private final ConnectedUsersService connectedUsersService;
 
-    public UsersController(UsersService usersService, TokenService tokenService, UserMapper userMapper) {
+    public UsersController(
+            UsersService usersService,
+            TokenService tokenService,
+            UserMapper userMapper,
+            ConnectedUsersService connectedUsersService
+    ) {
         this.usersService = usersService;
         this.tokenService = tokenService;
         this.userMapper = userMapper;
+        this.connectedUsersService = connectedUsersService;
     }
 
     @UserEndpoint()
@@ -31,6 +39,14 @@ public class UsersController {
     public List<UserDto> getAllUsers() {
         return userMapper.toDtos(usersService.getAllUsers());
     }
+
+    @UserEndpoint()
+    @GetMapping("/connected")
+    public List<UserDto> getAllConnectedUsers() {
+        List<Long> connectedUsersIds = connectedUsersService.getAllConnectedUserIds();
+        return userMapper.toDtos(usersService.getAllUsersByIds(connectedUsersIds));
+    }
+
 
     @PostMapping
     public UserDto createUser(@RequestBody CreateUserRequestDto createUserRequestDto) {

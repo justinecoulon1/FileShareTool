@@ -24,6 +24,10 @@ public class UsersService {
         return usersRepository.findAll();
     }
 
+    public List<FileShareToolUser> getAllUsersByIds(List<Long> userIds) {
+        return usersRepository.findAllByIdIn(userIds);
+    }
+
     public FileShareToolUser createUser(String name, String email, String password) {
         FileShareToolUser newUser = new FileShareToolUser(name, email, passwordService.hashPassword(password));
         return usersRepository.save(newUser);
