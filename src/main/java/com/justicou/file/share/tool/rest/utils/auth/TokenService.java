@@ -15,7 +15,7 @@ import java.util.Date;
 @Service
 public class TokenService {
 
-    private static final long ACCESS_TOKEN_EXPIRATION_MS = 15L * 60 * 1000;
+    private static final long ACCESS_TOKEN_EXPIRATION_MS = 15L * 60 * 1000 * 1000;
     private static final long REFRESH_TOKEN_EXPIRATION_MS = 48L * 60 * 60 * 1000;
 
     private final SecretKey secretKey;

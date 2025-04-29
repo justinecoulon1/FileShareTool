@@ -36,7 +36,10 @@ public class SharedFileInfoController {
 
     @UserEndpoint
     @PostMapping
-    public List<SharedFileInfoDto> updateUserSharedFileInfo(@CurrentUser FileShareToolUser user, @RequestBody UpdateSharedFileInfoRequestDto updateSharedFileInfoRequestDto) {
+    public List<SharedFileInfoDto> updateUserSharedFileInfo(
+            @CurrentUser FileShareToolUser user,
+            @RequestBody UpdateSharedFileInfoRequestDto updateSharedFileInfoRequestDto
+    ) {
         return sharedFileInfoMapper.toDtos(sharedFileInfoService.updateSharedFileInfo(user.getId(), updateSharedFileInfoRequestDto.updatedSharedFileInfoDto()));
     }
 }

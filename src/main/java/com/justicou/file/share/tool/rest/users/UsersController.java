@@ -40,13 +40,12 @@ public class UsersController {
         return userMapper.toDtos(usersService.getAllUsers());
     }
 
-    @UserEndpoint()
+    @UserEndpoint
     @GetMapping("/connected")
     public List<UserDto> getAllConnectedUsers() {
         List<Long> connectedUsersIds = connectedUsersService.getAllConnectedUserIds();
         return userMapper.toDtos(usersService.getAllUsersByIds(connectedUsersIds));
     }
-
 
     @PostMapping
     public UserDto createUser(@RequestBody CreateUserRequestDto createUserRequestDto) {
