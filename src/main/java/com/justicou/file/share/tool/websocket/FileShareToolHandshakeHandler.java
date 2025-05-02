@@ -25,6 +25,7 @@ public class FileShareToolHandshakeHandler extends DefaultHandshakeHandler {
 
     @Override
     protected Principal determineUser(ServerHttpRequest request, WebSocketHandler wsHandler, Map<String, Object> attributes) {
+        System.out.println(request.getHeaders());
         String accessToken = request.getHeaders().getFirst("accessToken");
 
         if (accessToken == null) {

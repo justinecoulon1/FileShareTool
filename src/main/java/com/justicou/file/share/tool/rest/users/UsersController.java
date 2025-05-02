@@ -34,7 +34,7 @@ public class UsersController {
         this.connectedUsersService = connectedUsersService;
     }
 
-    @UserEndpoint()
+    @UserEndpoint
     @GetMapping
     public List<UserDto> getAllUsers() {
         return userMapper.toDtos(usersService.getAllUsers());
