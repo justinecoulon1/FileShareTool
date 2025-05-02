@@ -2,11 +2,11 @@ package com.justicou.file.share.tool.rest.users;
 
 import com.justicou.file.share.tool.configuration.annotations.UserEndpoint;
 import com.justicou.file.share.tool.db.model.FileShareToolUser;
-import com.justicou.file.share.tool.rest.dto.users.CreateUserRequestDto;
-import com.justicou.file.share.tool.rest.dto.users.LoginRequestDto;
-import com.justicou.file.share.tool.rest.dto.users.LoginResponseDto;
-import com.justicou.file.share.tool.rest.dto.users.UserDto;
+import com.justicou.file.share.tool.rest.dto.sharedfiles.SharedFileInfoDto;
+import com.justicou.file.share.tool.rest.dto.users.*;
+import com.justicou.file.share.tool.rest.mapper.SharedFileInfoMapper;
 import com.justicou.file.share.tool.rest.mapper.UserMapper;
+import com.justicou.file.share.tool.rest.sharedfiles.SharedFileInfoService;
 import com.justicou.file.share.tool.rest.users.connectedusers.ConnectedUsersService;
 import com.justicou.file.share.tool.rest.utils.auth.TokenService;
 import org.springframework.web.bind.annotation.*;
@@ -21,23 +21,37 @@ public class UsersController {
     private final TokenService tokenService;
     private final UserMapper userMapper;
     private final ConnectedUsersService connectedUsersService;
+    private final SharedFileInfoService sharedFileInfoService;
+    private final SharedFileInfoMapper sharedFileInfoMapper;
 
     public UsersController(
             UsersService usersService,
             TokenService tokenService,
             UserMapper userMapper,
-            ConnectedUsersService connectedUsersService
+            ConnectedUsersService connectedUsersService,
+            SharedFileInfoService sharedFileInfoService,
+            SharedFileInfoMapper sharedFileInfoMapper
     ) {
         this.usersService = usersService;
         this.tokenService = tokenService;
         this.userMapper = userMapper;
         this.connectedUsersService = connectedUsersService;
+        this.sharedFileInfoService = sharedFileInfoService;
+        this.sharedFileInfoMapper = sharedFileInfoMapper;
     }
 
     @UserEndpoint
     @GetMapping
     public List<UserDto> getAllUsers() {
         return userMapper.toDtos(usersService.getAllUsers());
+    }
+
+    @UserEndpoint
+    @GetMapping("/{userId}")
+    public UserInfoDto getUserInfo(@PathVariable Long userId) {
+        UserDto user = userMapper.toDto(usersService.getUserById(userId));
+        List<SharedFileInfoDto> sharedFileInfos = sharedFileInfoMapper.toDtos(sharedFileInfoService.getUserSharedFileInfo(userId));
+        return new UserInfoDto(user, sharedFileInfos);
     }
 
     @UserEndpoint

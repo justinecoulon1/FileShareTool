@@ -43,4 +43,8 @@ public class UsersService {
         }
         return user;
     }
+
+    public FileShareToolUser getUserById(Long userId) {
+        return usersRepository.findById(userId).orElseThrow(() -> new NotFoundException("User Not Found"));
+    }
 }
