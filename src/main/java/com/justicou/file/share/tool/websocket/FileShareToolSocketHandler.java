@@ -10,11 +10,11 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 @Component
-public class FileShareWebSocketHandler extends TextWebSocketHandler {
+public class FileShareToolSocketHandler extends TextWebSocketHandler {
 
     private final ConnectedUsersService connectedUsersService;
 
-    public FileShareWebSocketHandler(ConnectedUsersService connectedUsersService) {
+    public FileShareToolSocketHandler(ConnectedUsersService connectedUsersService) {
         this.connectedUsersService = connectedUsersService;
     }
 
