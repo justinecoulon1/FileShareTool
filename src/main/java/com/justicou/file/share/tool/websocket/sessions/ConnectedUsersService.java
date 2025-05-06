@@ -1,4 +1,4 @@
-package com.justicou.file.share.tool.rest.users.connectedusers;
+package com.justicou.file.share.tool.websocket.sessions;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.WebSocketSession;

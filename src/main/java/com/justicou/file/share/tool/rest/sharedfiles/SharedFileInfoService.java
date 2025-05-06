@@ -2,6 +2,7 @@ package com.justicou.file.share.tool.rest.sharedfiles;
 
 import com.justicou.file.share.tool.db.model.SharedFileInfo;
 import com.justicou.file.share.tool.db.repositories.SharedFileInfoRepository;
+import com.justicou.file.share.tool.exceptions.NotFoundException;
 import com.justicou.file.share.tool.rest.dto.sharedfiles.UpdateSharedFileInfoDto;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,10 @@ public class SharedFileInfoService {
 
     public SharedFileInfoService(SharedFileInfoRepository sharedFileInfoRepository) {
         this.sharedFileInfoRepository = sharedFileInfoRepository;
+    }
+
+    public SharedFileInfo getSharedFileInfoById(Long id) {
+        return sharedFileInfoRepository.findById(id).orElseThrow(() -> new NotFoundException("Shared file not found"));
     }
 
     public List<SharedFileInfo> getUserSharedFileInfo(Long userId) {

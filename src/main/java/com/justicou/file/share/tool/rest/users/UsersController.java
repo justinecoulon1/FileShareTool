@@ -7,8 +7,8 @@ import com.justicou.file.share.tool.rest.dto.users.*;
 import com.justicou.file.share.tool.rest.mapper.SharedFileInfoMapper;
 import com.justicou.file.share.tool.rest.mapper.UserMapper;
 import com.justicou.file.share.tool.rest.sharedfiles.SharedFileInfoService;
-import com.justicou.file.share.tool.rest.users.connectedusers.ConnectedUsersService;
 import com.justicou.file.share.tool.rest.utils.auth.TokenService;
+import com.justicou.file.share.tool.websocket.sessions.ConnectedUsersService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
